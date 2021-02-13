@@ -29,15 +29,31 @@ class MelonType(object):
         """Replace the reporting code with the new_code."""
 
         self.code = new_code
+    
+    def __repr__(self):
+        return self.code 
 
 
 def make_melon_types():
     """Returns a list of current melon types."""
 
     all_melon_types = []
+
     musk = MelonType('musk', 1998, 'green', True, True, "Muskmelon")
-    casaba = MelonType("cas", 2003, "orange", False, False, "Casaba")
-    all_melon_types.extend([musk, casaba])
+    cas = MelonType("cas", 2003, "orange", False, False, "Casaba")
+    cren = MelonType('cren', 1996, 'green', False, False, 'Crenshaw')
+    yw = MelonType('yw', 2013, 'yellow', True, True, 'Yellow Watermelon')
+
+    pairings = {musk: 'mint', cas: ['strawberry', 'mint'], cren: 'proscuitto',
+                yw: 'ice cream'}
+
+    for melon in pairings:
+        if type(pairings[melon]) == list:
+            for pairing in pairings[melon]:
+                melon.add_pairing(pairing)
+        else: melon.add_pairing(pairings[melon])
+        all_melon_types.append(melon)
+
 
     return all_melon_types
 
